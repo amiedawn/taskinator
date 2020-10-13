@@ -3,7 +3,9 @@ var tasksToDoEl = document.querySelector("#tasks-to-do");
 
 
 var taskFormHandler = function(event) {
+  // stops the browser from reloading the page upon a form submission
   event.preventDefault();
+  
   var taskNameInput = document.querySelector("input[name='task-name']").value;
   var taskTypeInput = document.querySelector("select[name='task-type']").value;
 
