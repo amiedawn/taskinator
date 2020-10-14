@@ -7,10 +7,17 @@ var pageContentEl = document.querySelector("#page-content");
 var taskFormHandler = function(event) {
   // stops the browser from reloading the page upon a form submission
   event.preventDefault();
-
+  
   var taskNameInput = document.querySelector("input[name='task-name']").value;
   var taskTypeInput = document.querySelector("select[name='task-type']").value;
 
+ //  //??
+  var listItemEl = document.createElement("li"); //create a new task item
+  listItemEl.className = "task-item"; //style the new task item
+  listItemEl.textContent = taskNameInput; //add the text
+  tasksToDoEl.appendChild(listItemEl); //append the element to the task list
+
+  
   //package up data as an object
   var taskDataObj = {
     name: taskNameInput,
@@ -48,10 +55,8 @@ var createTaskEl = function(taskDataObj) {
   listItemEl.appendChild(taskInfoEl);
 
   // create buttons that correspond to the current task id
-  var taskActionsEl = createTaskActions(taskIdCounter);
-  listItemEl.appendChild(taskActionsEl);
-
-  tasksToDoEl.appendChild(listItemEl);
+  var taskActionsEl = createTaskActions(taskIdCounter); 
+  listItemEl.appendChild(taskActionsEl); 
 
   // add entire list item to list
   tasksToDoEl.appendChild(listItemEl);
@@ -102,19 +107,18 @@ var createTaskActions = function(taskId) {
     // append to select
     statusSelectEl.appendChild(statusOptionEl);
   }
-
   return actionContainerEl;
 };
 
-formEl.addEventListener("submit", taskFormHandler); 
-  var listItemEl = document.createElement("li"); //create a new task item
-  listItemEl.className = "task-item"; //style the new task item
-  listItemEl.textContent = taskNameInput; //add the text
-  tasksToDoEl.appendChild(listItemEl); //append the element to the task list
+
+//***********************************
+formEl.addEventListener("submit", taskFormHandler);
+
 
 // function for delete button
 
 var taskButtonHandler = function(event) {
+  console.log("You pressed delete")
   console.log(event.target);
 
   if (event.target.matches(".delete-btn")) {
