@@ -60,7 +60,7 @@ var createTaskEl = function(taskDataObj) {
   taskIdCounter++;
 };
 
-// create edit and delete buttons, and to-do dropdown for each task
+ // create edit and delete buttons, and to-do dropdown for each task
 var createTaskActions = function(taskId) {
 
   // create a new div element that will be a container for the other elements
@@ -103,9 +103,8 @@ var createTaskActions = function(taskId) {
     statusSelectEl.appendChild(statusOptionEl);
   }
 
-
   return actionContainerEl;
-}
+};
 
 formEl.addEventListener("submit", taskFormHandler); 
   var listItemEl = document.createElement("li"); //create a new task item
