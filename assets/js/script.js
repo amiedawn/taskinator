@@ -112,17 +112,12 @@ formEl.addEventListener("submit", taskFormHandler);
 
 // function for delete button
 var taskButtonHandler = function(event) {
-  console.log("You pressed delete")
   console.log(event.target);
 
   if (event.target.matches(".delete-btn")) {
     // get the element's task id
     var taskId = event.target.getAttribute("data-task-id");
     console.log(taskId);
-  }
-
-  if (event.target.matches(".delete-btn")) {
-    var taskId = event.target.getAttribute("data-task-id");
     deleteTask(taskId);
   }
 };
