@@ -11,12 +11,10 @@ var taskFormHandler = function(event) {
   var taskNameInput = document.querySelector("input[name='task-name']").value;
   var taskTypeInput = document.querySelector("select[name='task-type']").value;
 
- //  //??
   var listItemEl = document.createElement("li"); //create a new task item
   listItemEl.className = "task-item"; //style the new task item
   listItemEl.textContent = taskNameInput; //add the text
-  tasksToDoEl.appendChild(listItemEl); //append the element to the task list
-
+//  tasksToDoEl.appendChild(listItemEl); //append the element to the task list  --this was duplication of items
   
   //package up data as an object
   var taskDataObj = {
@@ -40,7 +38,7 @@ var taskFormHandler = function(event) {
 var createTaskEl = function(taskDataObj) {
   // create list item
   var listItemEl = document.createElement("li");
-  listItemEl.className = "task-item";
+  listItemEl.className = "task-item"; 
 
   // add task id as a custom attribute
   listItemEl.setAttribute("data-task-id", taskIdCounter);
@@ -110,13 +108,9 @@ var createTaskActions = function(taskId) {
   return actionContainerEl;
 };
 
-
-//***********************************
 formEl.addEventListener("submit", taskFormHandler);
 
-
 // function for delete button
-
 var taskButtonHandler = function(event) {
   console.log("You pressed delete")
   console.log(event.target);
