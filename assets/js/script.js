@@ -5,7 +5,7 @@ var pageContentEl = document.querySelector("#page-content");
 var tasksInProgressEl = document.querySelector("#tasks-in-progress");
 var tasksCompletedEl = document.querySelector("#tasks-completed");
 var tasks = [];
-
+//debugger;
 
 var taskFormHandler = function(event) {
   // stops the browser from reloading the page upon a form submission
@@ -303,8 +303,58 @@ var dragLeaveHandler = function(event) {
   }
 };
 
-var saveTasks = function() {
+var saveTasks = function () {
   localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+var loadTasks = function() {
+//debugger;
+
+// get task items from localStorage and convert string to array
+if (localStorage.getItem('tasks')) {
+    tasks = JSON.parse(localStorage.getItem('tasks'));
+  } else {
+    tasks = [];
+  }
+ 
+  //localStorage.getItem("tasks", tasks);
+  console.log(tasks);
+  console.log(localStorage);
+  
+  for (var i = 0; i < tasks.length; i++) {
+    taskIdCounter = tasks[i].id;
+  var listItemEl = document.createElement("li");
+  listItemEl.classname = "task-item";
+  
+  listItemEl.setAttribute("data-task-id", tasks[i].id);
+  listItemEl.setAttribute("draggable", "true");
+  console.log(listItemEl);
+
+  var taskInfoEl = document.createElement("div");
+  taskInfoEl.classname = "task-info";
+  taskInfoEl.innerHTML = "<h3 class='task-name'>" + tasks[i].name + "</h3><span class='task-type'<" + tasks[i].type + "</span>";
+
+  listItemEl.appendChild(taskInfoEl);
+
+  var taskActionsEl = createTaskActions(tasks[i].id);
+  listItemEl.appendChild(taskActionsEl);
+  console.log(listItemEl);
+
+  if (tasks[i].status === "to do") {
+    listItemEl.querySelector("select[name='status-change']").selectedIndex = 0;
+    tasksToDoEl.appendChild(listItemEl);
+  } else if 
+    (tasks[i].status === "in progress") {
+      listItemEl.querySelector("select[name='status-change']").selectedIndex = 1;
+      tasksInProgressEl.appendChild(listItemEl);
+  } else if
+    (tasks[i].status === "complete") {
+      listItemEl.querySelector("select[name='status-change']").selectedIndex = 2;
+      tasksInProgressEl.appendChild(listItemEl);
+    }  
+  }
+  taskInfoEl++;
+  console.log(listItemEl);
 }
 
 // eventListeners:
@@ -316,3 +366,4 @@ pageContentEl.addEventListener("dragover", dropZoneDragHandler); // dragover bet
 pageContentEl.addEventListener("drop", dropTaskHandler); // drop the task in the new container
 pageContentEl.addEventListener("dragleave", dragLeaveHandler); // revert container to old style after item is dropped elsewhere
 
+loadTasks();
