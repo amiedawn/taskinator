@@ -308,53 +308,19 @@ var saveTasks = function () {
 }
 
 var loadTasks = function() {
-//debugger;
+  var savedTasks = localStorage.getItem("tasks");
 
-// get task items from localStorage and convert string to array
-if (localStorage.getItem('tasks')) {
-    tasks = JSON.parse(localStorage.getItem('tasks'));
-  } else {
-    tasks = [];
+  if (!savedTasks) {
+    return false;
   }
- 
-  //localStorage.getItem("tasks", tasks);
-  console.log(tasks);
-  console.log(localStorage);
-  
-  for (var i = 0; i < tasks.length; i++) {
-    taskIdCounter = tasks[i].id;
-  var listItemEl = document.createElement("li");
-  listItemEl.classname = "task-item";
-  
-  listItemEl.setAttribute("data-task-id", tasks[i].id);
-  listItemEl.setAttribute("draggable", "true");
-  console.log(listItemEl);
 
-  var taskInfoEl = document.createElement("div");
-  taskInfoEl.classname = "task-info";
-  taskInfoEl.innerHTML = "<h3 class='task-name'>" + tasks[i].name + "</h3><span class='task-type'<" + tasks[i].type + "</span>";
+  savedTasks = JSON.parse(savedTasks);
 
-  listItemEl.appendChild(taskInfoEl);
-
-  var taskActionsEl = createTaskActions(tasks[i].id);
-  listItemEl.appendChild(taskActionsEl);
-  console.log(listItemEl);
-
-  if (tasks[i].status === "to do") {
-    listItemEl.querySelector("select[name='status-change']").selectedIndex = 0;
-    tasksToDoEl.appendChild(listItemEl);
-  } else if 
-    (tasks[i].status === "in progress") {
-      listItemEl.querySelector("select[name='status-change']").selectedIndex = 1;
-      tasksInProgressEl.appendChild(listItemEl);
-  } else if
-    (tasks[i].status === "complete") {
-      listItemEl.querySelector("select[name='status-change']").selectedIndex = 2;
-      tasksInProgressEl.appendChild(listItemEl);
-    }  
+  // loop through savedTasks array
+  for (var i = 0; i < savedTasks.length; i++) {
+    // pass each task object into the 'createTaskEl()' function
+    createTaskEl(savedTasks[i]);
   }
-  taskInfoEl++;
-  console.log(listItemEl);
 }
 
 // eventListeners:
